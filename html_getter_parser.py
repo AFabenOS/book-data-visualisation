@@ -21,11 +21,6 @@ def book_parser(book):
     words = soup_string.split()
     return words
 
-# Need to remove the "boilerplate" text that appears before the 2nd *** and after
-# the third ***
-# Find the indexes of the 2nd and 3rd, delete everything after the 3rd first
-# then delete everything before the 2nd. 
-
 def remove_boilerplate(book):
     words = book_parser(book)
 
@@ -54,26 +49,38 @@ def remove_numbers_symbols(book):
     for i in range(len(words)):
         words[i] = re.sub(r"[^a-zA-z]+", ' ', words[i])
         words[i] = re.sub(r'[0-9]+', ' ', words[i])
-    with open('removenumberssymbols.txt', 'w') as f:
-        f.write(str(words))
+    # with open('removenumberssymbols.txt', 'w') as f:
+    #     f.write(str(words))
     print("New length:", len(words))
+    return words
 
-def final_clean():
-    pass
-    #placeholder
-
-def convert_lower():
-    pass
+def clean_text(book):
+    # Strips whitespace in text and converts to lowercase
+    words = remove_numbers_symbols(book)
+    lc_words = []
+    for w in words:
+        lc_words.append(w.strip().lower())
+    return lc_words
+    
     # Converts everything to lower case, since A != a in Python
 
-def sort_alphabetical():
-    pass
+def sort_alphabetical(book):
+    words = clean_text(book)
+    words.sort()
+    print(words)
 
 url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
+sort_alphabetical(url_book)
 
-remove_numbers_symbols(url_book)
 if __name__ == '__main__':
-    pass
+    assert book_parser()
+    
+    url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
+    sort_alphabetical(url_book)
+
+# Once all the functions are written, refactor accordingly, such that
+# the book parameter isn't being passed to every function when it only needs to
+# be done once
 
 # class HTMLGetterAndParser():
 #     """
