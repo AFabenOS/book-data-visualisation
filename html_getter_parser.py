@@ -1,5 +1,4 @@
-from locale import normalize
-from os import remove
+from itertools import count
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import unicodedata
@@ -14,6 +13,7 @@ def book_parser(book):
     book_contents = soup.get_text(" ", strip=True)
 
     # Turns the soup into one big string
+    # NFKD deals with the spacing between characters
     normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
     soup_string = str(normalize_soup)
 
@@ -28,29 +28,35 @@ def book_parser(book):
 
 def remove_boilerplate(book):
     words = book_parser(book)
-    # count = 0
-    # for w in words:
-    #     if "***" in w:
-    #         count += 1
-    #         if count == 2:
-    #             index_value_1 = words.index(w)
-    #         if count == 3:
-    #             index_value_2 = words.index(w)
-    #         del words[index_value_2:]
-    #         del words[:index_value_1]
-    #     if w == "***":
-    #         print("True", words.index(w))
 
-url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-remove_boilerplate(url_book)
+    print("Original length:", len(words))
+    elem = "***"
+    # Stolen from SO (don't understand list comprehensions yet):
+    indices = [i for i, s in enumerate(words) if elem in s]
+    print(indices)
 
-def remove_numbers_symbols():
-    pass
+    # Store index values of desired slices in variables:
+    index_asterisk_1 = indices[1]
+    index_asterisk_2 = indices[2]
+
+    # Use these variables as index values to slice list and remove boilerplate
+    del(words[index_asterisk_2:])
+    del(words[:index_asterisk_1 + 1])
+    print("No boilerplate length:", len(words))
+    # with open('removeboilerplate.txt', 'w') as f:
+        # f.write(str(words))
+    return words
+
+def remove_numbers_symbols(book):
+    words = remove_boilerplate(book)
     # Use regex to remove all non-alphabetical characters (inc. numbers)
     # Copy pasted from StackOverflow
-    # for i in range(len(words)):
-    #     words[i] = re.sub(r"[^a-zA-z]+", ' ', words[i])
-    #     words[i] = re.sub(r'[0-9]+', ' ', words[i])
+    for i in range(len(words)):
+        words[i] = re.sub(r"[^a-zA-z]+", ' ', words[i])
+        words[i] = re.sub(r'[0-9]+', ' ', words[i])
+    with open('removenumberssymbols.txt', 'w') as f:
+        f.write(str(words))
+    print("New length:", len(words))
 
 def final_clean():
     pass
@@ -63,6 +69,9 @@ def convert_lower():
 def sort_alphabetical():
     pass
 
+url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
+
+remove_numbers_symbols(url_book)
 if __name__ == '__main__':
     pass
 
