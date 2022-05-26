@@ -1,10 +1,9 @@
-from itertools import count
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import unicodedata
 import re
 
-def book_parser(book):
+def get_book_parser(book):
     # Read contents of URL of the book
     html = urlopen(book).read()
     soup = BeautifulSoup(html, features='html.parser')
@@ -21,18 +20,19 @@ def book_parser(book):
     words = soup_string.split()
     return words
 
-def remove_boilerplate(book):
-    words = book_parser(book)
+def get_boilerplate_indices(words):
 
     print("Original length:", len(words))
     elem = "***"
     # Stolen from SO (don't understand list comprehensions yet):
     indices = [i for i, s in enumerate(words) if elem in s]
-    print(indices)
+    return indices
+
+def remove_boilerplate(index_values, words):
 
     # Store index values of desired slices in variables:
-    index_asterisk_1 = indices[1]
-    index_asterisk_2 = indices[2]
+    index_asterisk_1 = index_values[1]
+    index_asterisk_2 = index_values[2]
 
     # Use these variables as index values to slice list and remove boilerplate
     del(words[index_asterisk_2:])
@@ -40,10 +40,10 @@ def remove_boilerplate(book):
     print("No boilerplate length:", len(words))
     # with open('removeboilerplate.txt', 'w') as f:
         # f.write(str(words))
-    return words
+    words_no_bp = words    
+    return words_no_bp
 
-def remove_numbers_symbols(book):
-    words = remove_boilerplate(book)
+def remove_numbers_symbols(remove_bp, words):
     # Use regex to remove all non-alphabetical characters (inc. numbers)
     # Copy pasted from StackOverflow
     for i in range(len(words)):
@@ -54,27 +54,34 @@ def remove_numbers_symbols(book):
     print("New length:", len(words))
     return words
 
-def clean_text(book):
+def clean_text(remove_num_sym, words):
     # Strips whitespace in text and converts to lowercase
-    words = remove_numbers_symbols(book)
     lc_words = []
     for w in words:
         lc_words.append(w.strip().lower())
     return lc_words
-    
-    # Converts everything to lower case, since A != a in Python
 
+# This is the final function and where all other functions should be called    
 def sort_alphabetical(book):
-    words = clean_text(book)
+    # In order to sort the words, need to get every other function in here
+    words = get_book_parser(book)
+    # NEED TO CHANGE PARAMETER NAMES, IT'S USING THE SAME PARAMETER AND NOT CARRYING FORWARD
+    index_values = get_boilerplate_indices(words)
+
+    remove_bp = remove_boilerplate(index_values, words)
+
+    remove_num_sym = remove_numbers_symbols(remove_bp, words)
+
+    final_clean = clean_text(remove_num_sym, words)
+
+    words = clean_text(final_clean, words)
     words.sort()
     print(words)
-
-url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-sort_alphabetical(url_book)
+    print(len(words))
+    return words
 
 if __name__ == '__main__':
-    assert book_parser()
-    
+
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
     sort_alphabetical(url_book)
 
