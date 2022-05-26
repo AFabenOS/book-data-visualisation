@@ -64,23 +64,25 @@ def clean_text(remove_num_sym, words):
 # This is the final function and where all other functions should be called    
 def sort_alphabetical(book):
     # In order to sort the words, need to get every other function in here
+    # Not a big fan of this structure, it produces an assumedly correct result
+    # ...But it looks messy - Using same variable name an issue maybe?
     words = get_book_parser(book)
-    # NEED TO CHANGE PARAMETER NAMES, IT'S USING THE SAME PARAMETER AND NOT CARRYING FORWARD
     index_values = get_boilerplate_indices(words)
-
     remove_bp = remove_boilerplate(index_values, words)
-
     remove_num_sym = remove_numbers_symbols(remove_bp, words)
-
     final_clean = clean_text(remove_num_sym, words)
-
     words = clean_text(final_clean, words)
+
     words.sort()
     print(words)
     print(len(words))
     return words
 
 if __name__ == '__main__':
+    # 
+    assert get_book_parser()
+
+
 
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
     sort_alphabetical(url_book)
