@@ -1,10 +1,10 @@
 #Testing suite
-from html_getter_parser import book_parser, remove_boilerplate, remove_numbers_symbols, clean_text, sort_alphabetical
+from html_getter_parser import get_book_parser, set_remove_boilerplate, remove_numbers_symbols, clean_text, sort_alphabetical
 
-def test_book_parser():
+def test_get_book_parser():
     pass
 
-def test_remove_boilerplate():
+def test_set_remove_boilerplate():
     pass
 
 def test_remove_numbers_symbols():

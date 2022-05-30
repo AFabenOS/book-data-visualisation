@@ -1,3 +1,4 @@
+from ast import parse
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import unicodedata
@@ -26,13 +27,17 @@ def get_boilerplate_indices(words):
     elem = "***"
     # Stolen from SO (don't understand list comprehensions yet):
     indices = [i for i, s in enumerate(words) if elem in s]
+    # The commented-out code here highlights what the comprehension is doing.
+    # indices = []
+    # for i, s in enumerate(words):
+    #     if elem in s:
+    #         indices.append(i)
     return indices
 
-def remove_boilerplate(index_values, words):
-
+def remove_boilerplate(indices, words):
     # Store index values of desired slices in variables:
-    index_asterisk_1 = index_values[1]
-    index_asterisk_2 = index_values[2]
+    index_asterisk_1 = indices[1]
+    index_asterisk_2 = indices[2]
 
     # Use these variables as index values to slice list and remove boilerplate
     del(words[index_asterisk_2:])
@@ -43,53 +48,50 @@ def remove_boilerplate(index_values, words):
     words_no_bp = words    
     return words_no_bp
 
-def remove_numbers_symbols(remove_bp, words):
+def remove_numbers_symbols(words_no_bp):
     # Use regex to remove all non-alphabetical characters (inc. numbers)
     # Copy pasted from StackOverflow
-    for i in range(len(words)):
-        words[i] = re.sub(r"[^a-zA-z]+", ' ', words[i])
-        words[i] = re.sub(r'[0-9]+', ' ', words[i])
+    for i in range(len(words_no_bp)):
+        words_no_bp[i] = re.sub(r"[^a-zA-z]+", ' ', words_no_bp[i])
+        words_no_bp[i] = re.sub(r'[0-9]+', ' ', words_no_bp[i])
+
     # with open('removenumberssymbols.txt', 'w') as f:
     #     f.write(str(words))
-    print("New length:", len(words))
-    return words
+    print("New length:", len(words_no_bp))
+    # New variable to avoid confusion
+    words_no_symbols = words_no_bp
+    return words_no_symbols
 
-def clean_text(remove_num_sym, words):
+def lower_strip_clean(words_no_symbols):
     # Strips whitespace in text and converts to lowercase
     lc_words = []
-    for w in words:
+    for w in words_no_symbols:
         lc_words.append(w.strip().lower())
     return lc_words
 
 # This is the final function and where all other functions should be called    
-def sort_alphabetical(book):
-    # In order to sort the words, need to get every other function in here
-    # Not a big fan of this structure, it produces an assumedly correct result
-    # ...But it looks messy - Using same variable name an issue maybe?
-    words = get_book_parser(book)
-    index_values = get_boilerplate_indices(words)
-    remove_bp = remove_boilerplate(index_values, words)
-    remove_num_sym = remove_numbers_symbols(remove_bp, words)
-    final_clean = clean_text(remove_num_sym, words)
-    words = clean_text(final_clean, words)
+def sort_alphabetical(lc_words):
+    # Sorting occurs here
+    lc_words.sort()
+    # print(lc_words)
+    return lc_words
 
-    words.sort()
-    print(words)
-    print(len(words))
-    return words
+def parsed_text(url_book):
+    words = get_book_parser(url_book) #words return here
+    index_values = get_boilerplate_indices(words)
+    remove_bp = remove_boilerplate(index_values, words) #words_no_bp returns here
+    remove_num_sym = remove_numbers_symbols(remove_bp) #words_no_symbols returns here
+    final_words = lower_strip_clean(remove_num_sym)
+    sorted_words = sort_alphabetical(final_words)
+    
+    # Rename variable for clarity, not necessary
+    clean_text = sorted_words
+    return clean_text
 
 if __name__ == '__main__':
-    # 
-    assert get_book_parser()
-
-
-
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-    sort_alphabetical(url_book)
+    parsed_text(url_book)   
 
-# Once all the functions are written, refactor accordingly, such that
-# the book parameter isn't being passed to every function when it only needs to
-# be done once
 
 # class HTMLGetterAndParser():
 #     """
