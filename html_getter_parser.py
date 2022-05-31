@@ -23,8 +23,6 @@ def normalise_book(book_contents):
     return words
 
 def get_boilerplate_indices(words):
-
-    print("Original length:", len(words))
     elem = "***"
     # Stolen from SO (don't understand list comprehensions yet):
     indices = [i for i, s in enumerate(words) if elem in s]
@@ -33,6 +31,7 @@ def get_boilerplate_indices(words):
     # for i, s in enumerate(words):
     #     if elem in s:
     #         indices.append(i)
+    print(indices)
     return indices
 
 def remove_boilerplate(indices, words):
@@ -43,7 +42,6 @@ def remove_boilerplate(indices, words):
     # Use these variables as index values to slice list and remove boilerplate
     del(words[index_asterisk_2:])
     del(words[:index_asterisk_1 + 1])
-    print("No boilerplate length:", len(words))
     # with open('removeboilerplate.txt', 'w') as f:
         # f.write(str(words))
     words_no_bp = words    
@@ -58,7 +56,7 @@ def remove_numbers_symbols(words_no_bp):
 
     # with open('removenumberssymbols.txt', 'w') as f:
     #     f.write(str(words))
-    print("New length:", len(words_no_bp))
+
     # New variable to avoid confusion
     words_no_symbols = words_no_bp
     return words_no_symbols
@@ -77,7 +75,7 @@ def sort_alphabetical(lc_words):
     alphabetical_order = lc_words
     return alphabetical_order
 
-def parsed_text(url_book):
+def get_parsed_text(url_book):
     book_contents = get_book_parser(url_book) #words return here
     words = normalise_book(book_contents)
     index_values = get_boilerplate_indices(words)
@@ -88,13 +86,11 @@ def parsed_text(url_book):
     
     # Rename variable for clarity, not necessary
     clean_text = sorted_words
-    print(clean_text)
     return clean_text
 
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-    parsed_text(url_book)   
-
+    get_parsed_text(url_book)
 
 # class HTMLGetterAndParser():
 #     """
