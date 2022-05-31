@@ -10,7 +10,9 @@ def get_book_parser(book):
 
     # Note: The brackets originally had "|" rather than " "
     book_contents = soup.get_text(" ", strip=True)
+    return book_contents
 
+def normalise_book(book_contents):
     # Turns the soup into one big string
     # NFKD deals with the spacing between characters
     normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
@@ -72,11 +74,12 @@ def lower_strip_clean(words_no_symbols):
 def sort_alphabetical(lc_words):
     # Sorting occurs here
     lc_words.sort()
-    # print(lc_words)
-    return lc_words
+    alphabetical_order = lc_words
+    return alphabetical_order
 
 def parsed_text(url_book):
-    words = get_book_parser(url_book) #words return here
+    book_contents = get_book_parser(url_book) #words return here
+    words = normalise_book(book_contents)
     index_values = get_boilerplate_indices(words)
     remove_bp = remove_boilerplate(index_values, words) #words_no_bp returns here
     remove_num_sym = remove_numbers_symbols(remove_bp) #words_no_symbols returns here
@@ -85,6 +88,7 @@ def parsed_text(url_book):
     
     # Rename variable for clarity, not necessary
     clean_text = sorted_words
+    print(clean_text)
     return clean_text
 
 if __name__ == '__main__':
