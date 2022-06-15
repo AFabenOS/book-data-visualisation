@@ -3,25 +3,29 @@ from bs4 import BeautifulSoup
 import unicodedata
 import re
 
-def get_book_parser(book):
-    # Read contents of URL of the book
-    html = urlopen(book).read()
-    soup = BeautifulSoup(html, features='html.parser')
+class BookParser():
+    def __init__(self, url_book):
+        self.url_book = url_book
 
-    # Note: The brackets originally had "|" rather than " "
-    book_contents = soup.get_text(" ", strip=True)
-    return book_contents
+    def get_book_parser(self):
+        # Read contents of URL of the book
+        html = urlopen(self.url_book).read()
+        soup = BeautifulSoup(html, features='html.parser')
 
-def normalise_book(book_contents):
-    # Turns the soup into one big string
-    # NFKD deals with the spacing between characters
-    normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
-    soup_string = str(normalize_soup)
+        # Note: The brackets originally had "|" rather than " "
+        book_contents = soup.get_text(" ", strip=True)
+        return book_contents
 
-    # Turns the string into list of individual words + characters. 
-    words = soup_string.split()
-    print(words)
-    return words
+    def normalise_book(book_contents):
+        # Turns the soup into one big string
+        # NFKD deals with the spacing between characters
+        normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
+        soup_string = str(normalize_soup)
+
+        # Turns the string into list of individual words + characters. 
+        words = soup_string.split()
+        return words
+    
 
 def get_boilerplate_indices(words):
     elem = "***"
@@ -90,4 +94,13 @@ def get_parsed_text(url_book):
 
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-    get_parsed_text(url_book)
+    gatsby_book = BookParser(url_book)
+    print(gatsby_book.get_book_parser())
+    # This is functional so far. Needs a function call within 
+    # normalise_book() to avoid calling a bunch of methods in here
+    # Alternatively, make a third method that calls in both methods
+    # so that each method has a clear defined purpose
+
+    # Then need to transfer the results of these methods from the class
+    # into the next class somehow, might be a case of making a new variable
+    # and passing in that variable to the next method in the class??
