@@ -20,6 +20,7 @@ def normalise_book(book_contents):
 
     # Turns the string into list of individual words + characters. 
     words = soup_string.split()
+    print(words)
     return words
 
 def get_boilerplate_indices(words):
@@ -31,7 +32,6 @@ def get_boilerplate_indices(words):
     # for i, s in enumerate(words):
     #     if elem in s:
     #         indices.append(i)
-    print(indices)
     return indices
 
 def remove_boilerplate(indices, words):
