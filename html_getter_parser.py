@@ -91,33 +91,3 @@ def get_parsed_text(url_book):
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
     get_parsed_text(url_book)
-
-# class HTMLGetterAndParser():
-#     """
-#     Class that takes in a URL that contains text in HTML format,
-#     parses and cleans it.
-#     """
-
-#     def __init__(self):
-#         pass
-
-#     def html_getter(self):
-#         pass
-
-#     def pj_text_deleter(self):
-#         pass
-
-#     def remove_numbers(self):
-#         pass
-
-#     def erroneous_cleaning(self):
-#         pass
-
-#     def remove_single_letters_not_a_i(self):
-#         pass
-
-#     def convert_lower(self):
-#         pass
-
-#     def sort_alphabetical(self):
-#         pass

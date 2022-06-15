@@ -1,4 +1,5 @@
-#Testing suite
+import pytest
+from pathlib import Path
 from html_getter_parser import get_book_parser, normalise_book, remove_boilerplate,\
 remove_numbers_symbols, lower_strip_clean, sort_alphabetical, get_parsed_text
 
