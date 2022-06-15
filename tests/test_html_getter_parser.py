@@ -1,12 +1,15 @@
 import pytest
 from pathlib import Path
-from html_getter_parser import get_book_parser, normalise_book, remove_boilerplate,\
-remove_numbers_symbols, lower_strip_clean, sort_alphabetical, get_parsed_text
+from html_getter_parser import get_book_parser, normalise_book, get_boilerplate_indices,\
+remove_boilerplate, remove_numbers_symbols, lower_strip_clean, sort_alphabetical, get_parsed_text
 
 def test_get_book_parser():
     pass
 
 def test_normalise_book():
+    pass
+
+def test_get_boilerplate_indices():
     pass
 
 def test_remove_boilerplate():
@@ -23,5 +26,3 @@ def test_sort_alphabetical():
 
 def test_get_parsed_text():
     pass
-
-
