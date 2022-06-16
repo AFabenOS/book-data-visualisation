@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import unicodedata
 import re
 
+<<<<<<< HEAD
 class BookNormaliser():
     def __init__(self, url_book):
         self.url_book = url_book
@@ -36,6 +37,29 @@ class BookNormaliser():
 
     
 
+=======
+def get_book_parser(url_book):
+    """Obtains the html location and soupifies it."""
+    # Read contents of URL of the book
+    html = urlopen(url_book).read()
+    soup = BeautifulSoup(html, features='html.parser')
+
+    # Note: The brackets originally had "|" rather than " "
+    book_contents = soup.get_text(" ", strip=True)
+    return book_contents
+
+def get_normalised_book(book_contents):
+    """Removes all HTML 'code' from file."""
+    # Turns the soup into one big string
+    # NFKD deals with the spacing between characters
+    normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
+    soup_string = str(normalize_soup)
+
+    # Turns the string into list of individual words + characters. 
+    words = soup_string.split()
+    return words
+    
+>>>>>>> main
 def get_boilerplate_indices(words):
     elem = "***"
     # Stolen from SO (don't understand list comprehensions yet):
@@ -90,7 +114,7 @@ def sort_alphabetical(lc_words):
 
 def get_parsed_text(url_book):
     book_contents = get_book_parser(url_book) #words return here
-    words = normalise_book(book_contents)
+    words = get_normalised_book(book_contents)
     index_values = get_boilerplate_indices(words)
     remove_bp = remove_boilerplate(index_values, words) #words_no_bp returns here
     remove_num_sym = remove_numbers_symbols(remove_bp) #words_no_symbols returns here
@@ -103,8 +127,13 @@ def get_parsed_text(url_book):
 
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
+<<<<<<< HEAD
     gatsby_book = BookNormaliser(url_book)
     print(gatsby_book.set_normalised_book())
+=======
+    print(get_parsed_text(url_book))
+    
+>>>>>>> main
     # This is functional so far. Needs a function call within 
     # normalise_book() to avoid calling a bunch of methods in here
     # Alternatively, make a third method that calls in both methods
