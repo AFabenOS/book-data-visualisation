@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import unicodedata
 import re
 
-def get_book_parser():
+def get_book_parser(url_book):
     """Obtains the html location and soupifies it."""
     # Read contents of URL of the book
     html = urlopen(url_book).read()
@@ -78,7 +78,7 @@ def sort_alphabetical(lc_words):
 
 def get_parsed_text(url_book):
     book_contents = get_book_parser(url_book) #words return here
-    words = normalise_book(book_contents)
+    words = get_normalised_book(book_contents)
     index_values = get_boilerplate_indices(words)
     remove_bp = remove_boilerplate(index_values, words) #words_no_bp returns here
     remove_num_sym = remove_numbers_symbols(remove_bp) #words_no_symbols returns here
@@ -91,8 +91,8 @@ def get_parsed_text(url_book):
 
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-    get_parsed_text(url_book)
-    print(get_parsed_text)
+    print(get_parsed_text(url_book))
+    
     # This is functional so far. Needs a function call within 
     # normalise_book() to avoid calling a bunch of methods in here
     # Alternatively, make a third method that calls in both methods
