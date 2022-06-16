@@ -3,13 +3,11 @@ from bs4 import BeautifulSoup
 import unicodedata
 import re
 
-<<<<<<< HEAD
 class BookNormaliser():
     def __init__(self, url_book):
         self.url_book = url_book
 
-
-    def get_book_parser(self, url_book):
+    def get_book_parser(self):
         """Obtains the html location and soupifies it."""
         # Read contents of URL of the book
         html = urlopen(self.url_book).read()
@@ -20,8 +18,7 @@ class BookNormaliser():
         return book_contents
 
     def get_normalised_book(self, book_contents):
-        """Removes all HTML 'code' from file."""
-        # Turns the soup into one big string
+        """Turns the soup into a list of the contents."""
         # NFKD deals with the spacing between characters
         normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
         soup_string = str(normalize_soup)
