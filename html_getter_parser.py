@@ -3,16 +3,18 @@ from bs4 import BeautifulSoup
 import unicodedata
 import re
 
-def get_book_parser(book):
+def get_book_parser():
+    """Obtains the html location and soupifies it."""
     # Read contents of URL of the book
-    html = urlopen(book).read()
+    html = urlopen(url_book).read()
     soup = BeautifulSoup(html, features='html.parser')
 
     # Note: The brackets originally had "|" rather than " "
     book_contents = soup.get_text(" ", strip=True)
     return book_contents
 
-def normalise_book(book_contents):
+def get_normalised_book(book_contents):
+    """Removes all HTML 'code' from file."""
     # Turns the soup into one big string
     # NFKD deals with the spacing between characters
     normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
@@ -20,9 +22,8 @@ def normalise_book(book_contents):
 
     # Turns the string into list of individual words + characters. 
     words = soup_string.split()
-    print(words)
     return words
-
+    
 def get_boilerplate_indices(words):
     elem = "***"
     # Stolen from SO (don't understand list comprehensions yet):
@@ -91,3 +92,12 @@ def get_parsed_text(url_book):
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
     get_parsed_text(url_book)
+    print(get_parsed_text)
+    # This is functional so far. Needs a function call within 
+    # normalise_book() to avoid calling a bunch of methods in here
+    # Alternatively, make a third method that calls in both methods
+    # so that each method has a clear defined purpose
+
+    # Then need to transfer the results of these methods from the class
+    # into the next class somehow, might be a case of making a new variable
+    # and passing in that variable to the next method in the class??
