@@ -26,10 +26,10 @@ class BookNormaliser():
         # Turns the string into list of individual words + characters. 
         words = soup_string.split()
         return words
-    
+
     def set_normalised_book(self):
-        self.get_book_parser()
-        self.get_normalised_book()
+        self.get_book_parser(url_book)
+        self.get_normalised_book(book_contents)
     
 def get_boilerplate_indices(words):
     elem = "***"
