@@ -3,11 +3,13 @@ from bs4 import BeautifulSoup
 import unicodedata
 import re
 
-class BookParser():
+class BookNormaliser():
     def __init__(self, url_book):
         self.url_book = url_book
 
-    def get_book_parser(self):
+
+    def get_book_parser(self, url_book):
+        """Obtains the html location and soupifies it."""
         # Read contents of URL of the book
         html = urlopen(self.url_book).read()
         soup = BeautifulSoup(html, features='html.parser')
@@ -16,7 +18,8 @@ class BookParser():
         book_contents = soup.get_text(" ", strip=True)
         return book_contents
 
-    def normalise_book(book_contents):
+    def get_normalised_book(self, book_contents):
+        """Removes all HTML 'code' from file."""
         # Turns the soup into one big string
         # NFKD deals with the spacing between characters
         normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
@@ -25,6 +28,12 @@ class BookParser():
         # Turns the string into list of individual words + characters. 
         words = soup_string.split()
         return words
+    
+    def set_normalised_book(self):
+        parsed_book = self.get_book_parser(url_book)
+        normalised_book = self.get_normalised_book(parsed_book)
+        print(normalised_book)
+
     
 
 def get_boilerplate_indices(words):
@@ -94,8 +103,8 @@ def get_parsed_text(url_book):
 
 if __name__ == '__main__':
     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-    gatsby_book = BookParser(url_book)
-    print(gatsby_book.get_book_parser())
+    gatsby_book = BookNormaliser(url_book)
+    print(gatsby_book.set_normalised_book())
     # This is functional so far. Needs a function call within 
     # normalise_book() to avoid calling a bunch of methods in here
     # Alternatively, make a third method that calls in both methods
