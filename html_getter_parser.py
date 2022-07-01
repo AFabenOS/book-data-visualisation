@@ -2,7 +2,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import unicodedata
 import re
-print("here")
+
 class BookNormaliser():
     def __init__(self, url_book):
         self.url_book = url_book
@@ -113,22 +113,10 @@ class BookCleaner():
         print(len(alphabetical_order))
         return alphabetical_order
 
-    
-
-
-
+# if __name__ == '__main__':
 url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
 reg_book = BookCleaner(url_book)
 reg_book.sort_alphabetical()
-
-
-# if __name__ == '__main__':
-#     # Get the normalised book ready for processing
-#     # Note: This program differs compared to the version using just functions
-#     # "\\r\\n" appears throughout so that will need a method to deal with it. 
-#     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-
-
 
 # This is the final function and where all other functions should be called    
 
