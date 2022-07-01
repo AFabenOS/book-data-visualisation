@@ -17,8 +17,9 @@ class BookNormaliser():
         book_contents = soup.get_text(" ", strip=True)
         return book_contents
 
-    def get_normalised_book(self, book_contents):
+    def get_normalised_book(self):
         """Turns the soup into a list of the contents."""
+        book_contents = self.get_book_parser()
         # NFKD deals with the spacing between characters
         normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
         soup_string = str(normalize_soup)
@@ -27,20 +28,64 @@ class BookNormaliser():
         words = soup_string.split()
         return words
 
-    def set_normalised_book(self):
-        self.get_book_parser(url_book)
-        self.get_normalised_book(book_contents)
-    
-def get_boilerplate_indices(words):
-    elem = "***"
-    # Stolen from SO (don't understand list comprehensions yet):
-    indices = [i for i, s in enumerate(words) if elem in s]
-    # The commented-out code here highlights what the comprehension is doing.
-    # indices = []
-    # for i, s in enumerate(words):
-    #     if elem in s:
-    #         indices.append(i)
-    return indices
+class BoilerplateRemover():
+    def __init__(self, url_book):
+        # Create an instance of BookNormaliser within BoilerplateRemover
+        # So that variable words is accessible in this class
+        self.normalised_book = BookNormaliser(url_book)
+        
+    def get_boilerplate_indices(self):
+        """
+        Returns the indices value of the boilerplate text which is before
+        the second and after the third appearance of '***' in the text.
+        """
+        elem = "***"
+        indices = [i for i, s in enumerate(self.normalised_book.get_normalised_book()) if elem in s]
+        return indices
+        # The commented-out code here highlights what the comprehension is doing.
+        # indices = []
+        # for i, s in enumerate(words):
+        #     if elem in s:
+        #         indices.append(i)
+
+    def remove_boilerplate(self):
+        """Removes the boilerplate text from variable words using the indices 
+        values obtained from get_boilerplate_indices"""
+        # Assign the function calls as variables
+        bp_index = self.get_boilerplate_indices()
+        book_with_bp = self.normalised_book.get_normalised_book()
+
+        # Store index values of desired slices in variables:
+        index_asterisk_1 = bp_index[1]
+        index_asterisk_2 = bp_index[2]
+        print("ia1", index_asterisk_1, "ia2", index_asterisk_2)
+
+        # Delete all items before and after the specific index values
+        # Prove by showing length of book has decreased
+        print("Book with boilerplate length:", len(book_with_bp))
+        del(book_with_bp[index_asterisk_2:])
+        del(book_with_bp[:index_asterisk_1])
+
+        print("Removed boilerplate length:", len(book_with_bp))
+
+        
+        book_no_bp = book_with_bp
+        print(book_no_bp)
+        return book_no_bp
+
+
+url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
+bp = BoilerplateRemover(url_book)
+bp.remove_boilerplate()
+
+
+# if __name__ == '__main__':
+#     # Get the normalised book ready for processing
+#     # Note: This program differs compared to the version using just functions
+#     # "\\r\\n" appears throughout so that will need a method to deal with it. 
+#     url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
+
+
 
 def remove_boilerplate(indices, words):
     # Store index values of desired slices in variables:
@@ -96,10 +141,7 @@ def sort_alphabetical(lc_words):
     # clean_text = sorted_words
     # return clean_text
 
-if __name__ == '__main__':
-    url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm' 
-    gatsby_normalised = BookNormaliser(url_book)
-    gatsby_normalised.set_normalised_book()
+
 
     
     # This is functional so far. Needs a function call within 
