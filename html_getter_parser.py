@@ -2,7 +2,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import unicodedata
 import re
-
+print("here")
 class BookNormaliser():
     def __init__(self, url_book):
         self.url_book = url_book
@@ -63,20 +63,63 @@ class BoilerplateRemover():
         # Delete all items before and after the specific index values
         # Prove by showing length of book has decreased
         print("Book with boilerplate length:", len(book_with_bp))
+        # The second index deletion happens before the first since the location
+        # of elem would be altered.
         del(book_with_bp[index_asterisk_2:])
         del(book_with_bp[:index_asterisk_1])
-
         print("Removed boilerplate length:", len(book_with_bp))
 
-        
         book_no_bp = book_with_bp
-        print(book_no_bp)
         return book_no_bp
+
+class BookCleaner():
+    def __init__(self, url_book):
+        self.book = BoilerplateRemover(url_book)
+        
+    def remove_numbers_symbols(self):
+        """Use regex to remove all non-alphabetical characters (inc. numbers)"""
+        clean_book = self.book.remove_boilerplate()
+        # Copy pasted from StackOverflow
+        for i in range(len(clean_book)):
+            clean_book[i] = re.sub(r"[^a-zA-z]+", ' ', clean_book[i])
+            clean_book[i] = re.sub(r'[0-9]+', ' ', clean_book[i])
+
+        # with open('removenumberssymbols.txt', 'w') as f:
+        #     f.write(str(words))
+
+        # New variable to avoid confusion
+        words_no_symbols = clean_book
+        return words_no_symbols
+
+    def format_book(self):
+        """
+        Formats the text such that all words are lower case and any
+        whitespace is removed.
+        """
+        book = self.remove_numbers_symbols()
+
+        # Strips whitespace in text and converts to lowercase
+        formatted_book = []
+        for w in book:
+            formatted_book.append(w.strip().lower())
+
+        return formatted_book
+    
+    def sort_alphabetical(self):
+        """Sorts the book alphabetically."""
+        book = self.format_book()
+        book.sort()
+        alphabetical_order = book
+        print(len(alphabetical_order))
+        return alphabetical_order
+
+    
+
 
 
 url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
-bp = BoilerplateRemover(url_book)
-bp.remove_boilerplate()
+reg_book = BookCleaner(url_book)
+reg_book.sort_alphabetical()
 
 
 # if __name__ == '__main__':
@@ -87,46 +130,7 @@ bp.remove_boilerplate()
 
 
 
-def remove_boilerplate(indices, words):
-    # Store index values of desired slices in variables:
-    index_asterisk_1 = indices[1]
-    index_asterisk_2 = indices[2]
-
-    # Use these variables as index values to slice list and remove boilerplate
-    del(words[index_asterisk_2:])
-    del(words[:index_asterisk_1 + 1])
-    # with open('removeboilerplate.txt', 'w') as f:
-        # f.write(str(words))
-    words_no_bp = words    
-    return words_no_bp
-
-def remove_numbers_symbols(words_no_bp):
-    # Use regex to remove all non-alphabetical characters (inc. numbers)
-    # Copy pasted from StackOverflow
-    for i in range(len(words_no_bp)):
-        words_no_bp[i] = re.sub(r"[^a-zA-z]+", ' ', words_no_bp[i])
-        words_no_bp[i] = re.sub(r'[0-9]+', ' ', words_no_bp[i])
-
-    # with open('removenumberssymbols.txt', 'w') as f:
-    #     f.write(str(words))
-
-    # New variable to avoid confusion
-    words_no_symbols = words_no_bp
-    return words_no_symbols
-
-def lower_strip_clean(words_no_symbols):
-    # Strips whitespace in text and converts to lowercase
-    lc_words = []
-    for w in words_no_symbols:
-        lc_words.append(w.strip().lower())
-    return lc_words
-
 # This is the final function and where all other functions should be called    
-def sort_alphabetical(lc_words):
-    # Sorting occurs here
-    lc_words.sort()
-    alphabetical_order = lc_words
-    return alphabetical_order
 
 # def get_parsed_text(url_book):
 #     book_contents = get_book_parser(url_book) #words return here
