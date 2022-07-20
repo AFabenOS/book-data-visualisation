@@ -1,6 +1,6 @@
 import pytest
 
-from book_normaliser import BookNormaliser
+from app.book_normaliser import BookNormaliser
 
 def test_get_book_parser(self):
     bn = BookNormaliser()

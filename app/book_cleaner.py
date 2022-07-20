@@ -1,5 +1,5 @@
-from boilerplate_remover import BoilerplateRemover
 import re
+from boilerplate_remover import BoilerplateRemover
 
 class BookCleaner():
     def __init__(self, url_book):
@@ -39,4 +39,5 @@ class BookCleaner():
         book = self.format_book()
         book.sort()
         alphabetical_order = book
+
         return alphabetical_order
