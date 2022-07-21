@@ -1,18 +1,13 @@
-import pytest
-import app
-
 # FUTURE ANDREW LOOK UP MOCKING
+import unittest
 
-from app.book_cleaner import BookCleaner
-from app.boilerplate_remover import BoilerplateRemover
-from app.book_normaliser import BookNormaliser
 
 class TestBookCleaner:
 
     def test_remove_numbers_symbols(self):
         
         # Arrange - Setting up data + creating objects
-        url_book = ''
+        url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
         bc = BookCleaner(url_book)
         expected_output = []
 

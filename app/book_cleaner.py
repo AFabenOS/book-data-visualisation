@@ -1,5 +1,8 @@
 import re
-from boilerplate_remover import BoilerplateRemover
+try:
+    from app.boilerplate_remover import BoilerplateRemover
+except ModuleNotFoundError:
+    from boilerplate_remover import BoilerplateRemover
 
 class BookCleaner():
     def __init__(self, url_book):

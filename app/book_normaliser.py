@@ -26,3 +26,8 @@ class BookNormaliser():
         # Turns the string into list of individual words + characters. 
         words = soup_string.split()
         return words
+
+
+url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
+bc = BookNormaliser(url_book)
+print(bc.get_normalised_book())

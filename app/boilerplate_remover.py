@@ -1,5 +1,8 @@
-from book_normaliser import BookNormaliser
-
+try:
+    from app.book_normaliser import BookNormaliser
+except ModuleNotFoundError:
+    from book_normaliser import BookNormaliser
+    
 class BoilerplateRemover():
     def __init__(self, url_book):
         # Create an instance of BookNormaliser within BoilerplateRemover

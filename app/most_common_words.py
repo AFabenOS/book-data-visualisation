@@ -1,5 +1,8 @@
 from collections import Counter
-from book_cleaner import BookCleaner 
+try:
+    from app.book_cleaner import BookCleaner
+except ModuleNotFoundError:
+    from book_cleaner import BookCleaner
 
 class MostFrequentWords():
     def __init__(self, url_book):
@@ -15,6 +18,7 @@ class MostFrequentWords():
 
         #Convert to a dictionary
         dict_common_words = dict(most_common_words)
+
         print("Dictionary of most common words and their frequency:", dict_common_words)
 
         return dict_common_words
