@@ -5,8 +5,7 @@ from app.book_cleaner import BookCleaner
 
 class TestBookCleaner:
 
-    def test_remove_numbers_symbols(self):
-        
+    def test_remove_numbers_symbols(self):  
         # Arrange - Setting up data + creating objects
         url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
         bc = BookCleaner(url_book)

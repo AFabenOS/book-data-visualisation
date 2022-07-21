@@ -28,6 +28,6 @@ class BookNormaliser():
         return words
 
 
-url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
-bc = BookNormaliser(url_book)
-print(bc.get_normalised_book())
+# url_book = 'https://www.gutenberg.org/files/345/345-h/345-h.htm'
+# bc = BookNormaliser(url_book)
+# print(bc.get_normalised_book())
