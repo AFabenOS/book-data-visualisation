@@ -1,6 +1,7 @@
 # FUTURE ANDREW LOOK UP MOCKING
 import unittest
 
+from app.book_cleaner import BookCleaner
 
 class TestBookCleaner:
 
