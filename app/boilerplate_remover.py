@@ -38,11 +38,13 @@ class BoilerplateRemover():
         # Delete all items before and after the specific index values
         # Prove by showing length of book has decreased
         print("Book with boilerplate length:", len(book_with_bp))
+
         # The second index deletion happens before the first since the location
         # of elem would be altered.
         del(book_with_bp[index_asterisk_2:])
         del(book_with_bp[:index_asterisk_1])
         print("Removed boilerplate length:", len(book_with_bp))
 
+        # Transform variable name so it makes sense
         book_no_bp = book_with_bp
         return book_no_bp

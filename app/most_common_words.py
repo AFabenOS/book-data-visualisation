@@ -9,7 +9,6 @@ class MostFrequentWords():
         self.bc = BookCleaner(url_book)
 
     def common_words(self):
-        # Create instance of book cleaner
         book_common = self.bc.sort_alphabetical()
         print('Number of words:', len(book_common))
 
@@ -23,7 +22,3 @@ class MostFrequentWords():
 
         return dict_common_words
 
-url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
-bc = MostFrequentWords(url_book)
-book = bc.common_words()
-print(book)
