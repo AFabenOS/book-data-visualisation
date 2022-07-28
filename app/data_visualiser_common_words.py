@@ -27,5 +27,8 @@ class CommonWordChartGetter:
         plt.xlabel('Words')
         plt.ylabel('Frequency')
         plt.bar(common_words.keys(), common_words.values(), color='purple', linewidth=2)
+        plt.xticks(rotation=-45)
+        
 
-        plt.show()
+        plt.tight_layout()
+        plt.savefig('most_common_words.png', bbox_inches='tight', fig=100)

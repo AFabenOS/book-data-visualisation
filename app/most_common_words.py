@@ -10,7 +10,6 @@ class MostFrequentWords():
 
     def common_words(self):
         book_common = self.bc.sort_alphabetical()
-        print('Number of words:', len(book_common))
 
         #Most common words
         most_common_words = Counter(book_common).most_common(20)
@@ -21,4 +20,3 @@ class MostFrequentWords():
         print("Dictionary of most common words and their frequency:", dict_common_words)
 
         return dict_common_words
-
