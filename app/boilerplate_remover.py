@@ -48,3 +48,4 @@ class BoilerplateRemover():
         # Transform variable name so it makes sense
         book_no_bp = book_with_bp
         return book_no_bp
+
