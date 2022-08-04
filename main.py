@@ -10,5 +10,7 @@ if __name__ == '__main__':
 
     print("Time to run:", time.time() - start_time)
 
-
+# General notes:
 # Refactoring so that url_book is only passed to BookNormaliser and that subsequent passing is of the final variable list
+# At present it works backwards so need to understand way to do this correctly
+# Testing is very barebones on account of large lists being produced at every step - generate a smaller list that has the criteria?
