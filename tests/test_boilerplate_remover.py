@@ -25,8 +25,17 @@ class TestBoilerplateRemover:
 
         # Assert - Asserting that it works as expected (get the desired output)
         assert output == expected_output
+    
+    @pytest.mark.parametrize(
+        # Input,      Output
+        "url_book, expected_output",
+        [
+            ()
+            ("https://www.gutenberg.org/files/345/345-h/345-h.htm", )
 
-    # def test_remove_boilerplate(self):
+        ]
+    )
+    def test_remove_boilerplate(self):
     #     url_book = 'https://www.gutenberg.org/files/345/345-h/345-h.htm'
     #     br = BoilerplateRemover(url_book)
 

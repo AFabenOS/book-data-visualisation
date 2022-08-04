@@ -1,6 +1,9 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import unicodedata
+import logging
+
+logging.info("")
 
 class BookNormaliser():
     def __init__(self, url_book):
