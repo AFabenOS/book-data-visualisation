@@ -5,35 +5,26 @@ except ModuleNotFoundError:
     from boilerplate_remover import BoilerplateRemover
 
 class BookCleaner():
-    def __init__(self, url_book):
-        self.book = BoilerplateRemover(url_book)
         
-    def remove_numbers_symbols(self):
+    def remove_numbers_symbols(self, clean_book):
         """Use regex to remove all non-alphabetical characters (inc. numbers)"""
 
-        clean_book = self.book.remove_boilerplate()
         # Copy pasted from StackOverflow
         for i in range(len(clean_book)):
-            clean_book[i] = re.sub(r"[^a-zA-z]+", ' ', clean_book[i])
-            clean_book[i] = re.sub(r'[0-9]+', ' ', clean_book[i])
-
-        # with open('removenumberssymbols.txt', 'w') as f:
-        #     f.write(str(words))
+            clean_book[i] = re.sub(r"[^a-zA-z0-9]+", ' ', clean_book[i])
 
         # New variable to avoid confusion
         words_no_symbols = clean_book
         return words_no_symbols
 
-    def format_book(self):
+    def format_book(self, clean_book):
         """
         Formats the text such that all words are lower case and any
         whitespace is removed.
         """
-        book = self.remove_numbers_symbols()
+        book = self.remove_numbers_symbols(clean_book)
 
         # Strips whitespace in text and converts to lowercase
-        formatted_book = []
-        for w in book:
-            formatted_book.append(w.strip().lower())
+        formatted_book = [w.strip().lower() for w in book]
 
         return formatted_book

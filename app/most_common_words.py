@@ -5,16 +5,12 @@ except ModuleNotFoundError:
     from book_cleaner import BookCleaner
 
 class MostFrequentWords():
-    def __init__(self, url_book):
-        self.bc = BookCleaner(url_book)
 
-    def common_words(self):
+    def common_words(self, book_common):
         """
         Get the most common words in the list and return as a dictionary with the word
         and frequency with which it appears in the list.
         """
-        
-        book_common = self.bc.format_book()
 
         #Most common words
         most_common_words = Counter(book_common).most_common(20)

@@ -6,7 +6,7 @@
 other than on a case by case basis, since using a dictionary to check for actual
 words would remove the names of fictional places, words, or even foreign texts
 - Noticed 'jug jug' exists when it should either end up being 'jugjug' or 
-'jug', 'jug'
+'jug', 'jug'. (jug-jug-spat is the only instance of this in the book)
 - Roman numerals as chapters could be impacting true count (ASCII)
 # FIXED
 - Floating 'j's in text  (could be fixed by removing all single letters that aren't
