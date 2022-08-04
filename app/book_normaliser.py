@@ -20,7 +20,7 @@ class BookNormaliser():
         return book_contents
 
     def get_normalised_book(self):
-        """Turns the soup into a list of the contents."""
+        """Turns the soup into a Unicode string and then into a list."""
         book_contents = self.get_book_parser()
         # NFKD deals with the spacing between characters
         normalize_soup = unicodedata.normalize('NFKD', book_contents).encode('ascii', 'ignore')
@@ -30,6 +30,8 @@ class BookNormaliser():
         words = soup_string.split()
         return words
 
+
+# Test please ignore
 
 # url_book = 'https://www.gutenberg.org/files/345/345-h/345-h.htm'
 # bc = BookNormaliser(url_book)
