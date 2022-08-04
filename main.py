@@ -10,5 +10,3 @@ if __name__ == '__main__':
     reg_book.get_common_word_chart()
 
     print("Time to run:", time.time() - start_time)
-
-

@@ -8,6 +8,10 @@ except ModuleNotFoundError:
     from app.most_common_words import MostFrequentWords
 
 class CommonWordChartGetter:
+    """
+    Generates and saves a basic bar chart showing the 20 most common words in the book.
+    """
+    
     def __init__(self, url_book):
         self.mcw = MostFrequentWords(url_book)
 

@@ -10,6 +10,7 @@ class BookCleaner():
         
     def remove_numbers_symbols(self):
         """Use regex to remove all non-alphabetical characters (inc. numbers)"""
+
         clean_book = self.book.remove_boilerplate()
         # Copy pasted from StackOverflow
         for i in range(len(clean_book)):
@@ -36,11 +37,3 @@ class BookCleaner():
             formatted_book.append(w.strip().lower())
 
         return formatted_book
-    
-    def sort_alphabetical(self):
-        """Sorts the book alphabetically."""
-        book = self.format_book()
-        book.sort()
-        alphabetical_order = book
-
-        return alphabetical_order

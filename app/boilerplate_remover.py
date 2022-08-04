@@ -11,12 +11,13 @@ class BoilerplateRemover():
         
     def get_boilerplate_indices(self):
         """
-        Returns the indices value of the boilerplate text which is before
-        the second and after the third appearance of '***' in the text.
+        Returns the indices where the boilerplate text occurs which is denoted with '***' in the text.
         """
+
         elem = "***"
         indices = [i for i, s in enumerate(self.normalised_book.get_normalised_book()) if elem in s]
         return indices
+        
         # The commented-out code here highlights what the comprehension is doing.
         # indices = []
         # for i, s in enumerate(words):
@@ -24,8 +25,11 @@ class BoilerplateRemover():
         #         indices.append(i)
 
     def remove_boilerplate(self):
-        """Removes the boilerplate text from variable words using the indices 
-        values obtained from get_boilerplate_indices"""
+        """
+        Removes the boilerplate text from variable words using the indices 
+        values obtained from get_boilerplate_indices()
+        """
+
         # Assign the function calls as variables
         bp_index = self.get_boilerplate_indices()
         book_with_bp = self.normalised_book.get_normalised_book()
@@ -48,4 +52,3 @@ class BoilerplateRemover():
         # Transform variable name so it makes sense
         book_no_bp = book_with_bp
         return book_no_bp
-
