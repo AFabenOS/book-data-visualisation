@@ -2,8 +2,7 @@ try:
     from app.book_parser import BookParser
 except ModuleNotFoundError:
     from book_parser import BookParser
-else:
-    print("Error: A Module could not be imported correctly.")
+
     
 class BoilerplateRemover():
 

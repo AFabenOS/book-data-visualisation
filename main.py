@@ -1,4 +1,6 @@
 import time
+import logging
+
 from app.data_visualiser_common_words import CommonWordChartGetter
 from app.most_common_words import MostFrequentWords
 from app.book_cleaner import BookCleaner
@@ -7,9 +9,10 @@ from app.book_parser import BookParser
 
 if __name__ == '__main__':
     start_time = time.time()
+    # logging.basicConfig(filename="logs.txt", level=logging.INFO)
+    # logging.info("Starting process...")
 
     book_url = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
-
     bp = BookParser(book_url)
     raw_book_list = bp.get_book_list()
 

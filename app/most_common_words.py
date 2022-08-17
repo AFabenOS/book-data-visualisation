@@ -3,8 +3,6 @@ try:
     from app.book_cleaner import BookCleaner
 except ModuleNotFoundError:
     from book_cleaner import BookCleaner
-else:
-    print("Error: A Module could not be imported correctly.")
 
 class MostFrequentWords():
 
