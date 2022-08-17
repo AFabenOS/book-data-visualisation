@@ -12,8 +12,8 @@ class CommonWordChartGetter:
     Generates and saves a basic bar chart showing the 20 most common words in the book.
     """
 
-    def __init__(self, common_words):
-        self.common_words = common_words
+    def __init__(self, frequent_words):
+        self.frequent_words = frequent_words
 
     def get_common_word_chart(self):
 
@@ -29,7 +29,7 @@ class CommonWordChartGetter:
         plt.title("The 20 Most Common Words in 'The Great Gatsby'", fontsize = 20)
         plt.xlabel('Words')
         plt.ylabel('Frequency')
-        plt.bar(self.common_words.keys(), self.common_words.values(), color='purple', linewidth=2)
+        plt.bar(self.frequent_words.keys(), self.frequent_words.values(), color='purple', linewidth=2)
         plt.xticks(rotation=-45)
         
         plt.tight_layout()

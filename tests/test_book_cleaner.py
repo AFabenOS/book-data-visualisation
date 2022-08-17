@@ -8,8 +8,8 @@ class TestBookCleaner:
     def test_remove_numbers_symbols(self):  
         pass
         # # Arrange - Setting up data + creating objects
-        # url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
-        # bc = BookCleaner(url_book)
+        # book_url = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
+        # bc = BookCleaner(book_url)
         # expected_output = []
 
         # # Act - Do what you're testing (call methods)
