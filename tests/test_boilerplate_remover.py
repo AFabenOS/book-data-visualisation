@@ -1,7 +1,7 @@
 import pytest
 
 from app.boilerplate_remover import BoilerplateRemover
-from app.book_parser import BookNormaliser
+from app.book_parser import BookParser
 
 class TestBoilerplateRemover:
 

@@ -20,6 +20,3 @@ class TestBookCleaner:
 
     def test_format_book(self):
         pass
-
-    def test_sort_alphabetical(self):
-        pass

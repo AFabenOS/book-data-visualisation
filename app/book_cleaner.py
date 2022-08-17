@@ -3,6 +3,8 @@ try:
     from app.boilerplate_remover import BoilerplateRemover
 except ModuleNotFoundError:
     from boilerplate_remover import BoilerplateRemover
+else:
+    print("Error: A Module could not be imported correctly.")
 
 class BookCleaner():
         

@@ -6,6 +6,8 @@ try:
     from most_common_words import MostFrequentWords
 except ModuleNotFoundError:
     from app.most_common_words import MostFrequentWords
+else:
+    print("Error: A Module could not be imported correctly.")
 
 class CommonWordChartGetter:
     """
