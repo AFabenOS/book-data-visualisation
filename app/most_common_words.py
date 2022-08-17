@@ -6,18 +6,18 @@ except ModuleNotFoundError:
 
 class MostFrequentWords():
 
-    def common_words(self, book_common):
+    def get_frequent_words(self, formatted_book):
         """
         Get the most common words in the list and return as a dictionary with the word
         and frequency with which it appears in the list.
         """
 
         #Most common words
-        most_common_words = Counter(book_common).most_common(20)
+        most_frequent_words = Counter(formatted_book).most_common(20)
 
         #Convert to a dictionary
-        dict_common_words = dict(most_common_words)
+        dict_frequent_words = dict(most_frequent_words)
 
-        print("Dictionary of most common words and their frequency:", dict_common_words)
+        print("Most frequent words and how often they appear:", dict_frequent_words)
 
-        return dict_common_words
+        return dict_frequent_words

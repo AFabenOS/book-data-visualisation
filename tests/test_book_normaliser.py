@@ -1,11 +1,11 @@
 import pytest
 
-from app.book_normaliser import BookNormaliser
+from app.book_parser import BookNormaliser
 
 def test_get_book_parser(self):
     #Arrange
-    url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
-    bn = BookNormaliser(url_book)
+    book_url = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
+    bn = BookNormaliser(book_url)
     expected_output = []
 
     #Act
@@ -15,8 +15,8 @@ def test_get_book_parser(self):
 
 
 def test_get_normalised_book(self):
-    url_book = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
-    bn = BookNormaliser(url_book)
+    book_url = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
+    bn = BookNormaliser(book_url)
     expected_output = []
 
     bn.get_book_parser()

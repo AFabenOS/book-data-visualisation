@@ -3,26 +3,26 @@ from app.data_visualiser_common_words import CommonWordChartGetter
 from app.most_common_words import MostFrequentWords
 from app.book_cleaner import BookCleaner
 from app.boilerplate_remover import BoilerplateRemover
-from app.book_normaliser import BookNormaliser
+from app.book_parser import BookParser
 
 if __name__ == '__main__':
     start_time = time.time()
 
-    url_book = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
+    book_url = 'https://www.gutenberg.org/files/64317/64317-h/64317-h.htm'
 
-    nb = BookNormaliser(url_book)
-    norm_book = nb.get_normalised_book()
+    bp = BookParser(book_url)
+    raw_book_list = bp.get_book_list()
 
     br = BoilerplateRemover()
-    clean_book = br.remove_boilerplate(norm_book)
+    book_removed_bp = br.remove_boilerplate(raw_book_list)
 
     bc = BookCleaner()
-    book_common = bc.format_book(clean_book)
+    formatted_book = bc.format_book(book_removed_bp)
 
     mfw = MostFrequentWords()
-    common_words = mfw.common_words(book_common)
+    frequent_words = mfw.get_frequent_words(formatted_book)
 
-    reg_book = CommonWordChartGetter(common_words)
+    reg_book = CommonWordChartGetter(frequent_words)
     reg_book.get_common_word_chart()
 
     print("Time to run:", time.time() - start_time)
