@@ -1,22 +1,39 @@
-# FUTURE ANDREW LOOK UP MOCKING
-import unittest
+import pytest
 
 from app.book_cleaner import BookCleaner
+from app.boilerplate_remover import BoilerplateRemover
 
 class TestBookCleaner:
+    
+    @pytest.mark.parametrize(
+        "test_list, expected_output",
+        [
+            (['a', 'b', 'c', 'd.', ',...'], ['a', 'b', 'c', 'd ', ' ']),
+            (['a--', 'b,@', 'c#', 'd.', ',...'], ['a ', 'b ', 'c ', 'd ', ' ']),
+        ],
+    )
+    def test_remove_nonalphanumeric(self, test_list, expected_output):  
+        # Arrange
+        bc = BookCleaner()
 
-    def test_remove_numbers_symbols(self):  
-        pass
-        # # Arrange - Setting up data + creating objects
-        # book_url = 'https://stackoverflow.com/questions/71420952/modulenotfounderror-no-module-named-python'
-        # bc = BookCleaner(book_url)
-        # expected_output = []
+        # Act
+        output = bc.remove_nonalphanumeric(test_list)
+        # Assert
+        assert output == expected_output
+    
+    # @pytest.mark.parametrize(
+    #     "test_list, expected_output",
+    #     [
+    #         (['a ', 'b ', 'c ', 'd ', ' '], ['a', 'b', 'c', 'd', '']),
+    #     ],
+    # )
+    # def test_format_book(self, test_list, expected_output):
+    #     bc = BookCleaner
 
-        # # Act - Do what you're testing (call methods)
-        # output = bc.remove_numbers_symbols()
+    #     remove_alphanumeric = bc.remove_nonalphanumeric()
 
-        # # Assert - Asserting that it works as expected (get the desired output)
-        # assert output == expected_output
+    #     # Act
+    #     output = bc.format_book(remove_alphanumeric)
 
-    def test_format_book(self):
-        pass
+    #     # Assert
+    #     assert output == expected_output

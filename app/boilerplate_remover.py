@@ -2,7 +2,6 @@ try:
     from app.book_parser import BookParser
 except ModuleNotFoundError:
     from book_parser import BookParser
-
     
 class BoilerplateRemover():
 
