@@ -15,7 +15,6 @@ class BookCleaner():
         # Copy pasted from StackOverflow
         for i in range(len(book_removed_bp)):
             book_removed_bp[i] = re.sub(r"[^a-zA-z0-9]+", ' ', book_removed_bp[i])
-        print('test', book_removed_bp)
 
         # New variable to avoid confusion
         words_no_symbols = book_removed_bp
@@ -30,7 +29,6 @@ class BookCleaner():
 
         # Strips whitespace in text and converts to lowercase
         formatted_book = [w.strip().lower() for w in book]
-        print(formatted_book)
         return formatted_book
 
 # test_list = ['a', ',', 'b;;;', 'c', 'd.']

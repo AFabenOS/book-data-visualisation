@@ -4,8 +4,6 @@ import unicodedata
 import logging
 import sys
 
-logging.info("")
-
 class BookParser():
     def __init__(self, book_url):
         self.book_url = book_url
@@ -17,8 +15,8 @@ class BookParser():
             url = urlopen(self.book_url).read()
 
         except ValueError:
+            # add a logger.error here 
             print("Please supply a valid URL.")
-            sys.exit(1)
             
         else:
             soup = BeautifulSoup(url, features='html.parser')

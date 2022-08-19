@@ -33,7 +33,7 @@ class BoilerplateRemover():
         # Store index values of desired slices in variables:
         index_asterisk_1 = bp_index[1]
         index_asterisk_2 = bp_index[2]
-        print("ia1", index_asterisk_1, "ia2", index_asterisk_2)
+        print("Index 1:", index_asterisk_1, "Index 2:", index_asterisk_2)
 
         # Delete all items before and after the specific index values
         # Prove by showing length of book has decreased

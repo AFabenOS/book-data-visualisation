@@ -1,0 +1,7 @@
+2022-08-19 15:31:11,917 - INFO - Starting process...
+2022-08-19 15:31:11,919 - INFO - Obtaining the HTML document and passing it through BeautifulSoup
+2022-08-19 15:31:14,838 - INFO - Removing the boilerplate text from the book.
+2022-08-19 15:31:14,878 - INFO - Removing non-alphanumeric characters from the book.
+2022-08-19 15:31:16,075 - INFO - Retrieving the most frequently occurring words from the book.
+2022-08-19 15:31:16,201 - INFO - Producing a chart of the most frequent words.
+2022-08-19 15:31:23,758 - INFO - Program finished. Time to run: 11.848935842514038
